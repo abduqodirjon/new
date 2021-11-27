@@ -1,0 +1,82 @@
+{% extends 'yangilik/yan_base.html' %}
+
+{% block title %}
+<title>ilm.uz</title>
+{% endblock title %}
+
+
+{% block content %}
+
+<section class="section">
+    <div class="row">
+      <div class="col-lg-9">
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Yangiliklar qo'shish oynasi</h5>
+
+            <!-- General Form Elements -->
+            <form method="POST" enctype="multipart/form-data" action="{%url 'yan_add' %}">
+                {% csrf_token %}
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-2 col-form-label">Sarlavha</label>
+                <div class="col-sm-10">
+                  <input name="title" type="text" class="form-control" value="{{edit.title}}">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="inputEmail" class="col-sm-2 col-form-label">Mazmuni</label>
+                <div class="col-sm-10">
+                  <input name="content" type="text" class="form-control" value="{{edit.content}}">
+                </div>
+              </div>
+
+
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Kategoriyasi</label>
+                <div class="col-sm-10">
+                  <select name="category" class="form-select" aria-label="Default select example">
+                    <option selected disabled>Tanlang</option>
+                    {% for item in categorys %}
+                    <option value="{{item.id}}">{{item.category}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="inputNumber" class="col-sm-2 col-form-label">Rasm</label>
+                <div class="col-sm-10">
+                  <input name="img" class="form-control" type="file" id="formFile">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="inputNumber" class="col-sm-2 col-form-label">To'liq matni</label>
+                <div class="col-sm-10">
+                  <textarea name="text_full" class="tinymce-editor">
+                    {{edit.text_full}}
+                  </textarea><!-- End TinyMCE Editor -->
+                </div>
+              </div>
+              {% if edit %}
+              <button type="submit" class="btn btn-success">O'zgartirish <i class="bi bi-arrow-repeat"></i></button>
+              {% else %}
+              <button type="submit" class="btn btn-success">Qo'shish <i class="bi bi-plus"></i></button>
+              {% endif %}
+            
+            </form><!-- End General Form Elements -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- Vendor JS Files -->
+
+ 
+
+ 
+{% endblock content %}

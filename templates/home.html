@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        {% if user.is_staff %}
+            <li><a href="">O'quvchi qo'shish</a></li>
+            <li><a href="">O'qituvchi qo'shish</a></li>
+        {% endif %}
+        <div>
+            <li><a href="{% url 'student_all' %}">O'quvchilar</a></li>
+            <li><a href="{% url 'teacher_all' %}">O'qituvchilar</a></li>
+        </div>
+    {% endif %}
+{% endblock content %}

@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  
+    
+ <main id="main" data-aos="fade-in">
+
+  <!-- ======= Breadcrumbs ======= -->
+  <div class="breadcrumbs">
+    <div class="container">
+      <h2>Statistikalar</h2>
+      <p>Maktab bitiruvchilarining oliy ta'lim muassasalariga qabul qilinishi bo'yicha yillik ko'rsatkichi. Bundan tashqari tegishli kataloglarni tanlash orqali boshqa statistikalarni kuzatib borishingiz mumkin. </p>
+    </div>
+  </div><!-- End Breadcrumbs -->
+
+  <!-- ======= Trainers Section ======= -->
+    <section id="trainers" class="trainers">
+      <div class="container" data-aos="fade-up">
+
+        <canvas id="myChart"></canvas>
+        <hr>
+        </div>
+
+        <div class="container" style="margin-top: 8vh; ">
+            <center><p>Maktab o'quvchilarining oliy ta'limga tavsiya etilish shakli bo'yicha taqsimlanishi</p></center>
+        <canvas id="myChart_1" style="margin-top: 2vh;" ></canvas>
+        <hr>
+        </div>
+
+      </div>
+    </section><!-- End Trainers Section -->
+
+  
+ 
+</main><!-- End #main -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Birinchi diagrama -->
+    <script>
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+        let gradient = ctx.createLinearGradient(0,0,0,400);
+        gradient.addColorStop(0, 'rgba(9, 238, 58,1)');
+        gradient.addColorStop(1, 'rgba(34, 241, 145, 0.3');
+
+        let delayed;
+
+        let labels = ['2009','2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021'];
+        let data_data = [0, 91, 93, 89, 90, 95, 93, 93, 96, 94, 99, 95,96];
+        let data = {
+            labels: labels,
+            datasets:[{
+                label: "Maktab bitiruvchilarining oliy ta'lim muassasalariga qabul qilinishi",
+                data: data_data,
+                fill: true,
+                backgroundColor: gradient,
+                borderColor: '#fff',
+                pointBackgroundColor: "cyan",
+                tension: 0.1,
+            }]
+        };
+
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                radius: 5,
+                hitRadius: 30,
+                hoverRadius: 12,
+                responsive: true,
+                animation: {
+                    onComplete: () => {
+                        delayed = true;
+                    },
+                    delay: (context) => {
+                        let delay = 0;
+                        if (context.type==="data" && context.mode === "default" && !delayed){
+                            delay = context.dataIndex * 300 + context.datasetIndex * 100;
+                        }
+                        return delay;
+                    },
+                },
+                scales: {
+                    y: {
+                        ticks: {
+                            callback: function (value) {
+                                return value + ' %'
+                            }
+                        }
+                    },
+                }
+            }
+        }
+
+        const myChart = new Chart(ctx, config);
+    </script><!--birinchi diagrama tugashi-->
+    
+    <!-- ikkinchi diagrama -->
+    <script>
+        const ctx_1 = document.getElementById("myChart_1");
+        let grant = 45;
+        let kontrakt = 50;
+        let super_kontrakt = 3;
+        let kirolmagan = 2;
+
+        const data_1 = {
+                labels: [
+                    'Byudjet',
+                    'Shartnoma',
+                    'Super-shartnoma',
+                    'Kirolmagan',
+                ],
+                datasets: [{
+                    label: 'Maktab o\'quvchilarining oliy ta\'limga tavsiya etilish shakli bo\'yicha taqsimlanishi',
+                    data: [grant, kontrakt, super_kontrakt, kirolmagan],
+                    backgroundColor: [
+                    'rgb(7, 248, 39)',
+                    'rgb(204, 248, 7)',
+                    'rgb(248, 172, 7)',
+                    'rgb(248, 15, 7)',
+                    ],
+                    hoverOffset: 4
+                }]
+                };
+
+        const config_1 = {
+                type: 'doughnut',
+                data: data_1,
+                };
+        const chart = new Chart(ctx_1, config_1)
+    </script><!-- ikkinchi diagrama tugashi-->
+{% endblock content %}
