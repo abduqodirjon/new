@@ -11,7 +11,7 @@ class Category(models.Model):
 
 class News(models.Model):
     title = models.CharField(max_length=200, verbose_name="Sarlavha", unique=False)
-    content = models.CharField(max_length=250,verbose_name="Mazmuni")
+    body = models.CharField(max_length=250,verbose_name="Mazmuni")
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="Kategoriyasi")
     image = models.ImageField(upload_to='news_img', blank=True, null=True, verbose_name="Rasm")
     text_full = RichTextField(verbose_name="To\'liq matni")

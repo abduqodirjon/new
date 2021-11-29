@@ -1,63 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-    {% load static %}
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Sign Up</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  <!-- Favicons -->
-  <link href="{% static 'assets_1/img/favicon.png' %}" rel="icon">
-  <link href="{% static 'assets_1/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="{% static 'assets_1/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-  <link href="{% static 'assets_1/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
-  <link href="{% static 'assets_1/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
-  <link href="{% static 'assets_1/vendor/quill/quill.snow.css' %}" rel="stylesheet">
-  <link href="{% static 'assets_1/vendor/quill/quill.bubble.css' %}" rel="stylesheet">
-  <link href="{% static 'assets_1/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
-  <link href="{% static 'assets_1/vendor/simple-datatables/style.css' %}" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="{% static 'assets_1/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: NiceAdmin - v2.2.0
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-</head>
-
-<body>
-
-  <main>
-    <div class="container">
-
-      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-
-                <div class="d-flex justify-content-center py-4">
-                    <a href="{% url 'home' %}" class="logo d-flex align-items-center w-auto" style="text-decoration: none; font-family: 'Nutino', sans-serif; font-size: x-large; color: black;" >
-                      <img src="{% static 'assets_1/img/logo.png' %}" alt="">
-                      <span class="d-none d-lg-block" style="margin-left: 15px;">ilm.uz</span>
-                    </a>
-                  </div><!-- End Logo -->
-
-              <div class="card mb-3">
-
-                <div class="card-body">
-
+{% extends 'registration/base.html' %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_field %}
+ {% block title %}<title>Kirish</title>{% endblock title %}kirish
+    {% block content %}
                   <div class="pt-4 pb-2">
                     <h5 class="card-title text-center pb-0 fs-4">Ro'yxatdan o'tish</h5>
                     <p class="text-center small">Profil qaydnomasini yaratish uchun shaxsiy ma'lumotlarni kiriting</p>
@@ -65,95 +10,14 @@
 
                   <form class="row g-3 needs-validation" novalidate action="{% url 'signup' %}" method="POST">
                     {% csrf_token %}
-                    <div class="col-12">
-                      <label for="yourName" class="form-label">F.I.O</label>
-                      <input type="text" name="fio" class="form-control" id="yourName" required>
-                      <div class="invalid-feedback">Iltimos, ismingizni kiriting!</div>
-                    </div>
-
-                    <div class="col-12">
-                        <label for="yourName" class="form-label">Telefon raqam</label>
-                        <input type="text" name="tel" class="form-control" id="yourName" required>
-                        <div class="invalid-feedback">Iltimos, to'g'ri telefon raqamingizni kiriting!</div>
-                      </div>
-
-                    <div class="col-12">
-                      <label for="yourEmail" class="form-label">Email</label>
-                      <input type="email" name="email" class="form-control" id="yourEmail" required>
-                      <div class="invalid-feedback">Iltimos, to'g'ri elektron-pochta manzilini kiriting!</div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="yourUsername" class="form-label">Username</label>
-                      <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Iltimos, usernameni tanlang.</div>
-                        <center><h6 style="color: brown; font-style: italic;">{{error_1}}</h6></center>
-                      </div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="yourPassword" class="form-label">Parol</label>
-                      <input type="password" name="parol" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Iltimos, parolingizni o'ylab toping!</div>
-                    </div>
-                    <div class="col-12">
-                        <label for="yourPassword" class="form-label">Parolni tasdiqlash</label>
-                        <input type="password" name="parol_1" class="form-control" id="yourPassword" required>
-                        <div class="invalid-feedback">Iltimos, parolingizni tasdiqlang!</div>
-                        <center><h6 style="color: brown;">{{error_2}}</h6></center>
-                      </div>
-
-                    <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                        <label class="form-check-label" for="acceptTerms">Men roziman va qabul qilaman <a href="#">shartlar va talablarni.</a></label>
-                        <div class="invalid-feedback">Yuborishdan oldin rozi bo'lishingiz kerak.</div>
-                      </div>
-                    </div>
-                    <div class="col-12">
+                    {{form|crispy}}
+                    
                       <button class="btn btn-success w-100" type="submit">Yuborish</button>
                     </div>
                     <div class="col-12">
                       <p class="small mb-0">Profilingiz bormi? <a href="{% url 'login' %}">Kirish</a></p>
                     </div>
                   </form>
+    {% endblock content %}
 
-                </div>
-              </div>
-
-              <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-      </section>
-
-    </div>
-  </main><!-- End #main -->
-
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Vendor JS Files -->
-  <script src="{% static 'assets_1/vendor/apexcharts/apexcharts.min.js' %}"></script>
-  <script src="{% static 'assets_1/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'assets_1/vendor/chart.js/chart.min.js' %}"></script>
-  <script src="{% static 'assets_1/vendor/echarts/echarts.min.js' %}"></script>
-  <script src="{% static 'assets_1/vendor/quill/quill.min.js' %}"></script>
-  <script src="{% static 'assets_1/vendor/simple-datatables/simple-datatables.js' %}"></script>
-  <script src="{% static 'assets_1/vendor/tinymce/tinymce.min.js' %}"></script>
-  <script src="{% static 'assets_1/vendor/php-email-form/validate.js' %}"></script>
-
-  <!-- Template Main JS File -->
-  <script src="{% static 'assets_1/js/main.js' %}"></script>
-
-</body>
-
-</html>
+                

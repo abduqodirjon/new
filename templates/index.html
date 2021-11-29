@@ -28,24 +28,27 @@
       <div class="row" data-aos="zoom-in" data-aos-delay="100">
 
         {% for new in news %}
+          {% if new.category %}
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
             <div class="course-item" style="width: 354px; margin-top: 10px; box-shadow: 2,2,2 yellowgreen;">
               {% if new.image %}
-                <img src=" {{new.image.url}} " class="img-fluid" alt="..." style="width: 100%;">
+                <img src=" {{new.image.url}} " class="img-fluid" alt="..." style="width: 100%; height: 234px;">
               {% else %}
-                <img src="{% static 'assets/img/course-1.jpg' %}" class="img-fluid" alt="...">
+                <img src="{% static 'assets/img/course-1.jpg' %}" class="img-fluid" alt="..." style="width: 352px; height: 234px;">
               {% endif %}
               <div class="course-content">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                   <h4>{{new.category}}</h4>
                   <p class="price">{{new.date}}</p>
                 </div>
-                <h3><a href="course-details.html">{{new.title}}</a></h3>
-                <p>{{new.content}}</p>
+                <h3><a href="{% url 'yangilik' %}">{{new.title}}</a></h3>
+                <p>{{new.body}}</p>
                 <a href="{% url 'yangilik' %}">Batafsil <i class="bi bi-arrow-right-circle-fill"></i></a>
               </div>
             </div>
-          </div> <!-- End Course Item-->
+          </div>
+          {% endif %}
+          <!-- End Course Item-->
         {% endfor %}
 
         

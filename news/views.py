@@ -1,7 +1,8 @@
 from django import forms
 from django.shortcuts import render, redirect
 from .models import Category, News
-from . import forms
+from .forms import NewsForm
+from registration.decorators import allowed_users
 # Create your views here.
 
 def yangilik(request):
@@ -9,49 +10,40 @@ def yangilik(request):
     context['news'] = News.objects.all()
     return render(request, 'yangilik/yangilik.html', context)
 
-def yan_add_test(request):
-    context = {}
-    if request.method == "POST":
-        form = forms.NewsForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            img_obj = form.instance
 
-        return render(request, 'yangilik/yan_add_test.html', {'form': form, 'img_obj': img_obj})
-    else:
-        form = forms.NewsForm()
-    return render(request, 'yangilik/yan_add_test.html', {'form': form})
-
-
+@allowed_users(allowed_roles=['admin'])
 def yan_add(request):
     context = {}
     context['categorys'] = Category.objects.all()
-
     if request.method == "POST":
-        title = request.POST.get('title')
-        content = request.POST.get('content')
-        category = request.POST.get('category')
-        img = request.POST.get('img')
-        text_full = request.POST.get('text_full')
-        print(img)
-        if title != "" and content != "" and category != 0 and text_full != "":
-            ctg = Category.objects.get(id=category)
-            new = News(title=title, content=context, category=ctg, image=img, text_full=text_full)
-            new.save()
-        return redirect('yangilik')
-
-   
-
+        form = NewsForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            context['news'] = News.objects.all()
+            return redirect('yangilik')
+    context['form'] = NewsForm()
     return render(request, 'yangilik/yan_add.html', context)
 
+@allowed_users(allowed_roles=['admin'])
 def edit(request, pk):
     context = {}
-    context['categorys'] = Category.objects.all()
-    context['edit'] = News.objects.get(id=pk)
+    new = News.objects.get(id=pk)
+    form = NewsForm(instance=new)
+    if request.method == "POST":
+        print("salom")
+        form = NewsForm(request.POST, instance=new)
+        print(form)
+        if form.is_valid():
+            form.save()
+            return redirect('yangilik')
+    context['form'] = form
     return render(request, 'yangilik/yan_add.html', context)
 
+@allowed_users(allowed_roles=['admin'])
 def delete(request, pk):
-    context = {}
-    context['edit'] = News.objects.get(id=pk)
-    return render(request, 'yangilik/yangilik.html', context)
+    form = News.objects.get(id=pk)
+    if request.method == "POST":
+        form.delete()
+        return redirect('yangilik')
+    return render(request, 'yangilik/yan_delete.html', {'form':form})
 

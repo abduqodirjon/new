@@ -1,36 +1,30 @@
+from django import forms
+from django.core.checks import messages
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate,login, logout
 from django.contrib.auth.decorators import login_required
+from .decorators import unauthenticated_user
+from .forms import CreateUserForm
 
 # Create your views here.
-
+@unauthenticated_user
 def signup(request):
     context = {}
-    if request.method=="POST":
-        fio = request.POST.get('fio')
-        tel = request.POST.get('tel')
-        email = request.POST.get('email')
-        username = request.POST.get('username')
-        parol = request.POST.get('parol')
-        parol_1 = request.POST.get('parol_1')
+    form = CreateUserForm(request.POST)
+    if form.is_valid():
+        user = form.save()
+        username = form.cleaned_data.get('username')
 
-        if len(fio)!=0 and len(tel)!=0 and len(email)!=0 and len(username) and len(parol)!=0 and len(parol_1):
-            u = User.objects.filter(username=username)
-            if len(u)==0:
-                if parol==parol_1:
-                    user = User.objects.create_user(first_name=fio, last_name=tel, email=email, username=username, password=parol)
-                    user.save()
-                    if user is not None:
-                        return redirect('login')
-                else:
-                    context['error_2']="Parollar mos kelmadi"
-            else:
-                context['error_1']="Bunday Username mavjud iltimos boshqa username kiriting"
-        else:
-            context['error']="Ma'lumotlarni to'ldiring"
+        group = Group.objects.get(name='foydalanuvchi')
+        user.groups.add(group)
+        messages.success(request, "Profil yaratildi" + username)
+        return redirect('login')
+    context['form'] = form
     return render(request, 'registration/signup.html', context)
 
+
+@unauthenticated_user
 def log_in(request):
     context = {}
     if request.method=="POST":

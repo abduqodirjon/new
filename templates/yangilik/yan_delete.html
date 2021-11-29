@@ -1,0 +1,13 @@
+{% extends 'yangilik/yan_base.html' %}
+
+
+{% block content %}
+    <div class="container">
+        <h3>Haqiqatdan ham <b>" {{form.title}} "</b> sarlavhali {{form.category}}ni o'chirmoqchimisiz</h3>
+        <form action="{% url 'yan_delete' form.id %}" method="POST" >
+            {% csrf_token %}
+            <a href="{% url 'yangilik' %}" type="button" style="margin-right: 20px;">Yo'q</a>
+            <button type="submit" class="btn btn-outline-success">Ha, albatta</button>
+        </form>
+    </div>
+{% endblock content %}

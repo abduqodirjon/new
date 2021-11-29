@@ -71,8 +71,10 @@
         <p style="margin-top: 5vh; margin-left: 5%; font-size: large; width: 90%;">
           {{new.text_full | safe}}
             </p>
-        <a href="{% url 'edit' new.id %}">Tahrirlash  </a> | 
-        <a href="{% url 'delete' new.id %}">  O'chirish</a>  
+            {% if user.is_superuser %}
+              <a href="{% url 'yan_edit' new.id %}">Tahrirlash  </a> | 
+              <a href="{% url 'yan_delete' new.id %}">  O'chirish</a>  
+            {% endif %}  
         <hr>
       </div>
      
