@@ -46,4 +46,9 @@ def log_out(request):
     if request.method=="GET":
         logout(request)
         return redirect('home')
+@login_required(login_url='login')
+def edit_profil(request):
+    context = {}
+
+    return render(request, 'registration/edit_profil.html')
 
