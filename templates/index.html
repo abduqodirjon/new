@@ -6,8 +6,11 @@
   <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
     <h1>Bugun O'rgan,<br>Ertaga O'rgat</h1>
     <h2>Biz birinchi tarbiyani o'rgatamiz, keyin bilim beramiz</h2>
+    
     {% if user.is_authenticated %}
-    <!-- <a href="{% url 'natija' %}" class="btn-get-started">Boshlash</a> -->
+     {% comment %} <a href="{% url 'natija' %}" class="btn-get-started">Boshlash</a> {% endcomment %}
+     
+
     {% else %}
     <a href="{% url 'login' %}" class="btn-get-started">Kirish</a>
     <a href="{% url 'signup' %}" class="btn-get-started">Ro'yxatdan o'tish</a>

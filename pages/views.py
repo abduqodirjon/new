@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from news.models import Category, News
 from django.contrib.auth.decorators import login_required
+from registration.models import CustomUser
 
 
 # Create your views here.

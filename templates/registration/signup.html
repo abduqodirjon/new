@@ -10,6 +10,7 @@
 
                   <form class="row g-3 needs-validation" novalidate action="{% url 'signup' %}" method="POST">
                     {% csrf_token %}
+                    {{ form.media}}
                     {{form|crispy}}
                     
                       <button class="btn btn-success w-100" type="submit">Yuborish</button>
