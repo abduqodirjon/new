@@ -24,7 +24,20 @@
                           <input type="password" name="parol" class="form-control" id="yourPassword" required>
                           <div class="invalid-feedback">Iltimos parolingizni kiriting!</div>
                         </div>
-    
+                        <div class="col-12">
+                          <p style="color: red;">
+                            {{error}}
+                          </p>
+                        </div>
+                        {% for message in messages %}
+                      <div class="col-8" style="border: none; border-radius: 5x; background-color: rgb(38, 255, 0); margin-left: 5%;">
+                        <p style="color: rgb(128, 0, 6);">
+                          {{message}}
+                        </p>
+                      </div>
+                    {% endfor %}
+
+
                         <div class="col-12">
                           <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
@@ -36,6 +49,7 @@
                         </div>
                         <div class="col-12">
                           <p class="small mb-0">Profilingiz hali ham yo'qmi? <a href="{% url 'signup' %}">Ro'yxatdan o'tish</a></p>
+                          <p class="small mb-0">Parol esdan chiqdimi? <a href="{% url 'password_reset' %}">Parolni tiklash</a></p>
                         </div>
                       </form>
     {% endblock content %}

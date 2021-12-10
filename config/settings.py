@@ -115,12 +115,20 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# DEFAULT_FROM_EMAIL = 'admin@sariq.dev'
+# EMAIL_HOST = 'smtp.sariq.dev'
+# EMAIL_HOST_USER = 'username'
+# EMAIL_HOST_PASSWORD = 'password'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
 
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'uz'
 
 TIME_ZONE = 'Asia/tashkent'
 

@@ -9,11 +9,11 @@ from .models import CustomUser
 class CustomCreateUserForm(UserCreationForm):
     class Meta:
         model = CustomUser
-        fields = [ 'u_fio', 'guruhi', 'm_fio', 'username', 'tel', 'manzil', 'password1', 'password2']
+        fields = [ 'guruhi', 'u_fio',   'm_fio', 'username', 'tel', 'email', 'manzil', 'password1', 'password2']
         # fields = ['username']
     
 class CustomUserChangeForm(UserChangeForm):
     password = None
     class Meta:
         model = CustomUser
-        fields = ['u_fio', 'guruhi', 'm_fio', 'username', 'tel', 'email', 'manzil', 'image' ]
+        fields = ['u_fio', 'guruhi', 'm_fio', 'username', 'tel', 'email', 'manzil','image' ]

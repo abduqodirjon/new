@@ -53,22 +53,27 @@
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul >
-          <li><a id="nav_act" onclick="act(0)" href="{% url 'home' %}" class="active">Uy sahifa</a></li>
-          <li><a id="nav_act" onclick="act(1)" href="{% url 'about' %}">Biz haqimizda</a></li>
-          <li><a id="nav_act" onclick="act(2)" href="{% url 'natija' %}">Natijalar</a></li>
-          <li><a id="nav_act" onclick="act(3)" href="{% url 'statistika' %}">Statistikalar</a></li>
-          <li><a id="nav_act" onclick="act(4)" href="{% url 'yangilik' %}">Yangiliklar</a></li>
+          <li><a id="nav_act" onclick="act()" href="{% url 'home' %}" >Uy sahifa</a></li>
+          <li><a id="nav_act" onclick="act()" href="{% url 'about' %}">Biz haqimizda</a></li>
+          <li><a id="nav_act" onclick="act()" href="{% url 'natija' %}">Natijalar</a></li>
+          <li><a id="nav_act" onclick="act()" href="{% url 'statistika' %}">Statistikalar</a></li>
+          <li><a id="nav_act" onclick="act()" href="{% url 'yangilik' %}">Yangiliklar</a></li>
           <!-- 2 ta page kerak bo'lganda ishlatiladi -->
           <!--  <li><a href="pricing.html">Pricing</a></li> -->
 
 
-          <li><a href="{% url 'contact' %}">Bog'lanish</a></li>
+          <li><a id="nav_act" href="{% url 'contact' %}">Bog'lanish</a></li>
           {% if user.is_authenticated %}
-          <li class="dropdown"><a href="#" ><span>Profil      <img src="{% static 'assets/img/trainers/trainer-2.jpg' %}" style="height: 30px; width: 30px; border-radius: 50%; margin-left: 15px;" alt=""></span> <i class="bi bi-chevron-down"></i></a>
+          
+           {% if  request.user.image %}
+          <li class="dropdown"><a href="#" ><span>Profil      <img src="{{request.user.image.url}}" style="height: 30px; width: 30px; border-radius: 50%; margin-left: 15px;" alt=""></span> <i class="bi bi-chevron-down"></i></a>
+           {% else %}
+          <li class="dropdown"><a href="#" ><span>Profil      <img src="{% static 'image/logo_1/logo.jpg' %}" style="height: 30px; width: 30px; border-radius: 50%; margin-left: 15px;" alt=""></span> <i class="bi bi-chevron-down"></i></a>
+            {% endif %}
             <ul>
               <li><a href="{% url 'user_detail' %}">Ma'lumotlarim</a></li>
               <li><a href="{% url 'edit_profil' %}">Tahrirlash</a></li>
-              <li><a href="#">Parolni o'zgartish</a></li>
+              <li><a href="{% url 'password_change'%}">Parolni o'zgartish</a></li>
               <hr>
               <li><a href="{% url 'logout' %}">Chiqib ketish</a></li>
             </ul>

@@ -8,7 +8,8 @@
   <div class="breadcrumbs" data-aos="fade-in">
     <div class="container">
       <h2>Yangiliklar va E'lonlar</h2>
-      <p>Est dolorum ut non facere possimus quibusdam eligendi voluptatem. Quia id aut similique quia voluptas sit quaerat debitis. Rerum omnis ipsam aperiam consequatur laboriosam nemo harum praesentium. </p>
+      <p>Est dolorum ut non facere possimus quibusdam eligendi voluptatem. Quia id aut similique quia voluptas sit
+        quaerat debitis. Rerum omnis ipsam aperiam consequatur laboriosam nemo harum praesentium. </p>
     </div>
   </div><!-- End Breadcrumbs -->
 
@@ -48,40 +49,62 @@
   </section>-->
   <!-- End Events Section -->
 
-<!-- ======= Cource Details Section ======= -->
-<section id="course-details" class="course-details">
-  {% if user.is_superuser %}
-    <div class="col-lg-9" style="display: flex; justify-content: end;"><a href="{% url 'yan_add' %}" type="button" class="btn btn-success" style="color: aliceblue;"><i class="bi bi-plus"></i>  Yangilik yoki E'lon qo'shish </a></div>
-  {% endif %}
+  <!-- ======= Cource Details Section ======= -->
+  <section id="course-details" class="course-details">
+    {% if user.is_superuser %}
+    <div class="col-lg-9" style="display: flex; justify-content: end;"><a href="{% url 'yan_add' %}" type="button"
+        class="btn btn-success" style="color: aliceblue;"><i class="bi bi-plus"></i> Yangilik yoki E'lon qo'shish </a>
+    </div>
+    {% endif %}
 
-  {% for new in news %}
-  <div class="container" data-aos="fade-up" style="display: flex; align-items: center; justify-content: center;" >
+    {% for new in news %}
+    <div class="container" data-aos="fade-up" style="display: flex; align-items: center; justify-content: center;">
 
-    
-      
-        <div class="col-lg-10" style="width: 930 px;">
 
+
+      <div class="col-lg-10" style="width: 930 px;">
         <h3>{{new.title}}</h3>
-        {% if new.image %}
-          <center><img src=" {{new.image.url}} " class="img-fluid" alt="..." style="width: 90%; height: 520px;"></center>
-        {% else %}
-          
-          <center><img src="{% static 'assets/img/course-1.jpg' %}" class="img-fluid" alt="..." style="width: 90%;"></center>
-        {% endif %}
-        <p style="margin-top: 5vh; margin-left: 5%; font-size: large; width: 90%;">
-          {{new.text_full | safe}}
+        <div class="row">
+
+          <div class="col-lg-6">
+            {% if new.image %}
+            <center><img src=" {{new.image.url}} " class="img-fluid mt-3" alt="..." style="width: 400px; height: 350px;"></center>
+            {% else %}
+            <center><img src="{% static 'assets/img/course-1.jpg' %}" class="img-fluid mt-3" alt="..."
+                style="width: 90%;"></center>
+            {% endif %}
+          </div>
+
+          <div class="col-lg-6">
+            <p style="margin-top: 5vh; margin-left: 5%; font-size: large; width: 90%;">
+              {{new.text_full | safe}}
             </p>
-            {% if user.is_superuser %}
-              <a href="{% url 'yan_edit' new.id %}">Tahrirlash  </a> | 
-              <a href="{% url 'yan_delete' new.id %}">  O'chirish</a>  
-            {% endif %}  
+          </div>
+
+        </div>
+
+       
+        {% if user.is_superuser %}
+        <a href="{% url 'yan_edit' new.id %}">Tahrirlash </a> |
+        <a href="{% url 'yan_delete' new.id %}"> O'chirish</a>
+        {% endif %}
+        <div class="row mt-2">
+          <div class="col-10" style="display: flex; justify-content: space-between;">
+            <p class="text-start">{{new.author}}</p>
+            <p class="text-end">{{new.date}}</p>
+          </div>
+        </div>
         <hr>
       </div>
-     
-  </div>
- 
-  {% endfor %}
-</section><!-- End Cource Details Section -->
+
+    </div>
+
+    {% endfor %}
+  </section><!-- End Cource Details Section -->
 
 </main><!-- End #main -->
+<script>
+  var li = document.querySelectorAll('#nav_act');
+  li[4].className="active";
+</script>
 {% endblock content %}
