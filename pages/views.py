@@ -30,6 +30,10 @@ def statistika(request):
 def contact(request):
     return render(request, 'contact.html')
 
-def admin(request):
+def admin_panel(request):
 
     return render(request, 'admin/main.html')
+
+def add_teacher(request):
+
+    return render(request, 'admin/add_teacher.html')
